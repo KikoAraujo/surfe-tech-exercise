@@ -1,20 +1,13 @@
+import { Note } from "../../types/Notes";
 import { Icons } from "../Icons";
 
-export interface NoteProps {
-  id: number;
-  title: string;
-  text: string;
-  updated_at: string;
-}
-
-const NoteComponent = ({ id, title, text, updated_at }: NoteProps) => {
+const NoteComponent = ({ id, title, text, updated_at }: Note) => {
   return (
     <div className="bg-white w-72 h-60 rounded-lg shadow-xl px-3.5 py-2 flex flex-col gap-2">
       <div>
         <div className="flex items-center justify-between">
           {/* Editable Title */}
           <input
-            id={`title_${id}`}
             className="font-semibold text-2xl outline-none transition w-full bg-transparent"
             value={title}
             onChange={(e) => {}}
@@ -26,13 +19,10 @@ const NoteComponent = ({ id, title, text, updated_at }: NoteProps) => {
             )}
           </div>
         </div>
-        <p id={`updated_at_${id}`} className="text-xxs font-medium">
-          Last update: {updated_at}
-        </p>
+        <p className="text-xxs font-medium">Last update: {updated_at}</p>
       </div>
       {/* Editable Content */}
       <textarea
-        id={`content_${id}`}
         className="text-sm font-medium outline-none w-full resize-none transition bg-transparent"
         value={text}
         onChange={(e) => {}}

@@ -9,11 +9,7 @@ function App() {
     }
   }, []);
 
-  return (
-    <div className="h-screen">
-      <HomePage />
-    </div>
-  );
+  return <HomePage />;
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import getNotes from "../services/api/notes/getNotes";
 import { formatNotes } from "../utils/formatters";
 import { sortNotes } from "../utils/helpers";
@@ -6,12 +6,11 @@ import { Note } from "../types/Notes";
 
 const useGetNotes = () => {
   const [data, setData] = useState<Note[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
 
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     try {
-      setIsLoading(true);
       setError(undefined);
 
       const response = await getNotes();
@@ -32,15 +31,15 @@ const useGetNotes = () => {
         setError("An unknown error occurred");
       }
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, [fetchNotes]);
 
-  return { data, isLoading, error };
+  return { data, loading, error, refetch: fetchNotes };
 };
 
 export default useGetNotes;
