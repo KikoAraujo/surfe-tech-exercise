@@ -1,7 +1,6 @@
-import {
-  Thumbtack
-} from './icons'
+import { Plus, Thumbtack } from "./icons";
 
 export const Icons = {
   thumbtack: Thumbtack,
-} as const
+  plus: Plus,
+} as const;
