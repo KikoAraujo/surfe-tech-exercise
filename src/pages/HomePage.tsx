@@ -6,10 +6,16 @@ import useGetNotes from "../hooks/useGetNotes";
 import { useCreateNote } from "../hooks/useCreateNote";
 import ErrorComponent from "../components/Layout/ErrorComponent";
 import LoadingComponent from "../components/Layout/LoadingComponent";
+import { useEffect, useState } from "react";
+import { Note } from "../types/Notes";
+import { useDebounce } from "../hooks/useDebounce";
+import putNote from "../services/api/notes/putNote";
 
 const HomePage = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+
   const {
-    data: notes,
+    data,
     refetch: refetchNotes,
     loading: getLoading,
     error: getNotesError,
@@ -21,11 +27,66 @@ const HomePage = () => {
     error: postNoteError,
   } = useCreateNote();
 
+  useEffect(() => {
+    setNotes(data);
+  }, [data]);
+
   const handleClick = async () => {
     const updatedAt = getNewDate();
     const newNoteBody = { title: "New Note", text: "", updated_at: updatedAt };
     await createNote(newNoteBody);
     await refetchNotes();
+  };
+
+  // Update note after stop typing for 1sec
+  const [updateNote, setUpdateNote] = useState<{
+    id: number;
+    field: "title" | "text";
+    value: string;
+  } | null>(null);
+  const debouncedNoteToUpdate = useDebounce(updateNote, 1000);
+
+  useEffect(() => {
+    if (debouncedNoteToUpdate) {
+      const { id, field, value } = debouncedNoteToUpdate;
+
+      const updateNote = async () => {
+        try {
+          const noteToUpdate = notes.find((note) => note.id === id);
+
+          if (!noteToUpdate) return;
+
+          noteToUpdate[field] = value;
+          const updatedAt = getNewDate();
+          const newNoteBody = {
+            title: noteToUpdate.title,
+            text: noteToUpdate.text,
+            updated_at: updatedAt,
+          };
+          const formattedBody = JSON.stringify(newNoteBody);
+
+          await putNote(id, formattedBody);
+        } catch (error) {
+          console.error("Error updating note", error);
+        }
+      };
+
+      updateNote();
+    }
+  }, [debouncedNoteToUpdate]);
+
+  const handleContentChange = (
+    id: number,
+    field: "title" | "text",
+    value: string
+  ) => {
+    setUpdateNote({ id, field, value });
+
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === id ? { ...note, [field]: value } : note
+      )
+    );
   };
 
   return (
@@ -35,11 +96,12 @@ const HomePage = () => {
           {/* Create Note Button */}
           <Button
             text="Add note"
-            className="bg-surfe-darkBlue text-neutral-50"
+            className="bg-surfe-dark-blue text-neutral-50"
             icon={{
               position: "left",
               iconElement: Icons.plus("h-4 w-4", "#fafafa"),
             }}
+            disabled={postLoading}
             onClick={handleClick}
           />
         </div>
@@ -50,7 +112,13 @@ const HomePage = () => {
         ) : getLoading ? (
           <LoadingComponent />
         ) : (
-          notes.map((note) => <NoteComponent key={note.id} {...note} />)
+          notes.map((note) => (
+            <NoteComponent
+              key={note.id}
+              {...note}
+              handleContentChange={handleContentChange}
+            />
+          ))
         )}
       </div>
     </div>

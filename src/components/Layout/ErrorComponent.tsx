@@ -7,7 +7,7 @@ const ErrorComponent = () => {
       {/* Refresh Page Button */}
       <Button
         text={"Try Again"}
-        className="bg-surfe-darkBlue text-neutral-50"
+        className="bg-surfe-dark-blue text-neutral-50"
         onClick={() => window.location.reload()}
       />
     </div>

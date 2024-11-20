@@ -5,8 +5,8 @@ module.exports = {
     extend: {
       colors: {
         surfe: {
-          lightBlue: "#ebfafe",
-          darkBlue: "#073742",
+          "light-blue": "#ebfafe",
+          "dark-blue": "#073742",
           pink: "#ffa2ea",
         },
         neutral: {

@@ -1,7 +1,21 @@
 import { Note } from "../../types/Notes";
 import { Icons } from "../Icons";
 
-const NoteComponent = ({ id, title, text, updated_at }: Note) => {
+interface NoteComponentProps extends Note {
+  handleContentChange: (
+    id: number,
+    field: "title" | "text",
+    value: string
+  ) => void;
+}
+
+const NoteComponent = ({
+  id,
+  title,
+  text,
+  updated_at,
+  handleContentChange,
+}: NoteComponentProps) => {
   return (
     <div className="bg-white w-72 h-60 rounded-lg shadow-xl px-3.5 py-2 flex flex-col gap-2">
       <div>
@@ -10,7 +24,9 @@ const NoteComponent = ({ id, title, text, updated_at }: Note) => {
           <input
             className="font-semibold text-2xl outline-none transition w-full bg-transparent"
             value={title}
-            onChange={(e) => {}}
+            onChange={(e) => {
+              handleContentChange(id, "title", e.target.value);
+            }}
           />
           <div className="cursor-pointer h-5 w-5 flex items-center justify-center">
             {Icons.thumbtack(
@@ -25,8 +41,11 @@ const NoteComponent = ({ id, title, text, updated_at }: Note) => {
       <textarea
         className="text-sm font-medium outline-none w-full resize-none transition bg-transparent"
         value={text}
-        onChange={(e) => {}}
-        rows={5}
+        onChange={(e) => {
+          handleContentChange(id, "text", e.target.value);
+        }}
+        placeholder="Note text..."
+        rows={7}
       />
     </div>
   );
