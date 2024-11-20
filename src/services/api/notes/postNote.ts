@@ -5,7 +5,7 @@ const postNote = async (body: string) => {
     const response = await fetch(
       `https://challenge.surfe.com/${sessionId}/notes`,
       {
-        method: "PUT",
+        method: "POST",
         redirect: "follow",
         headers: {
           "Content-Type": "application/json",
