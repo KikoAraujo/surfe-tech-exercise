@@ -7,7 +7,7 @@ export interface NoteProps {
   updated_at: string;
 }
 
-const Note = ({ id, title, text, updated_at }: NoteProps) => {
+const NoteComponent = ({ id, title, text, updated_at }: NoteProps) => {
   return (
     <div className="bg-white w-72 h-60 rounded-lg shadow-lg px-3.5 py-2 flex flex-col gap-2">
       <div>
@@ -42,4 +42,4 @@ const Note = ({ id, title, text, updated_at }: NoteProps) => {
   );
 };
 
-export default Note;
+export default NoteComponent;

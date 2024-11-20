@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import Note, { NoteProps } from "../components/Layout/Note";
+import NoteComponent from "../components/Layout/NoteComponent";
 import Button from "../components/Buttons";
 import { Icons } from "../components/Icons";
-import { getNewDate } from "../utils/formatters";
+import { formatNotes, getNewDate } from "../utils/formatters";
 import postNote from "../services/api/notes/postNote";
 import getNotes from "../services/api/notes/getNotes";
+import { Note } from "../types/Notes";
+import { sortNotes } from "../utils/helpers";
 
 const HomePage = () => {
-  const [notes, setNotes] = useState<NoteProps[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
 
   const getNotesData = async () => {
     try {
@@ -18,13 +20,11 @@ const HomePage = () => {
       }
 
       const notesData = await response.json();
-      const formattedNotes = notesData.map(
-        (noteData: { id: number; body: string }) => {
-          return { id: noteData.id, ...JSON.parse(noteData.body) };
-        }
-      );
 
-      setNotes(formattedNotes);
+      const formattedNotes = formatNotes(notesData);
+      const sortedNotes = sortNotes(formattedNotes);
+
+      setNotes(sortedNotes);
     } catch {
       console.log("Error fecthing notes...");
     }
@@ -61,7 +61,7 @@ const HomePage = () => {
       </div>
       <div className="flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-40">
         {notes.map((note) => (
-          <Note key={note.id} {...note} />
+          <NoteComponent key={note.id} {...note} />
         ))}
       </div>
     </>
