@@ -1,4 +1,4 @@
-const getNotes = async (note_id: string) => {
+const getNotes = async (note_id?: string) => {
   const sessionId = sessionStorage.getItem("session_id");
 
   const queryParams = new URLSearchParams();
