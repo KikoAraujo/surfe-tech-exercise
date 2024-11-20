@@ -1,38 +1,12 @@
-import { useEffect, useState } from "react";
 import NoteComponent from "../components/Layout/NoteComponent";
 import Button from "../components/Buttons";
 import { Icons } from "../components/Icons";
-import { formatNotes, getNewDate } from "../utils/formatters";
+import { getNewDate } from "../utils/formatters";
 import postNote from "../services/api/notes/postNote";
-import getNotes from "../services/api/notes/getNotes";
-import { Note } from "../types/Notes";
-import { sortNotes } from "../utils/helpers";
+import useGetNotes from "../hooks/useGetNotes";
 
 const HomePage = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
-
-  const getNotesData = async () => {
-    try {
-      const response = await getNotes();
-
-      if (!response.ok) {
-        throw new Error("Error fecthing notes...");
-      }
-
-      const notesData = await response.json();
-
-      const formattedNotes = formatNotes(notesData);
-      const sortedNotes = sortNotes(formattedNotes);
-
-      setNotes(sortedNotes);
-    } catch {
-      console.log("Error fecthing notes...");
-    }
-  };
-
-  useEffect(() => {
-    getNotesData();
-  }, []);
+  const { data: notes, isLoading, error } = useGetNotes();
 
   return (
     <>
@@ -60,9 +34,17 @@ const HomePage = () => {
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-40">
-        {notes.map((note) => (
-          <NoteComponent key={note.id} {...note} />
-        ))}
+        {error ? (
+          <p>Ups! Something went wrong...</p>
+        ) : isLoading ? (
+          <div className="flex justify-center">
+            <div className="animate-spin">
+              {Icons.ellipse("h-14 w-14", "#073742")}
+            </div>
+          </div>
+        ) : (
+          notes.map((note) => <NoteComponent key={note.id} {...note} />)
+        )}
       </div>
     </>
   );
