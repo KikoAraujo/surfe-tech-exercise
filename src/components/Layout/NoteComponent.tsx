@@ -1,5 +1,7 @@
 import { Note } from "../../types/Notes";
 import { Icons } from "../Icons";
+import { User } from "../../types/Users";
+import TextAreaWithMentions from "../Shared/TextAreaWithMentions";
 
 interface NoteComponentProps extends Note {
   handleContentChange: (
@@ -7,6 +9,7 @@ interface NoteComponentProps extends Note {
     field: "title" | "text",
     value: string
   ) => void;
+  users: User[];
 }
 
 const NoteComponent = ({
@@ -15,6 +18,7 @@ const NoteComponent = ({
   text,
   updated_at,
   handleContentChange,
+  users,
 }: NoteComponentProps) => {
   return (
     <div className="bg-white w-72 h-60 rounded-lg shadow-xl px-3.5 py-2 flex flex-col gap-2">
@@ -38,14 +42,13 @@ const NoteComponent = ({
         <p className="text-xxs font-medium">Last update: {updated_at}</p>
       </div>
       {/* Editable Content */}
-      <textarea
-        className="text-sm font-medium outline-none w-full resize-none transition bg-transparent"
-        value={text}
-        onChange={(e) => {
-          handleContentChange(id, "text", e.target.value);
-        }}
-        placeholder="Note text..."
-        rows={7}
+      <TextAreaWithMentions
+        handleContentChange={handleContentChange}
+        users={users}
+        id={id}
+        title={title}
+        text={text}
+        updated_at={updated_at}
       />
     </div>
   );

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Note } from "../types/Notes";
 import { useDebounce } from "../hooks/useDebounce";
 import putNote from "../services/api/notes/putNote";
+import useGetUsers from "../hooks/useGetUsers";
 
 const HomePage = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -17,9 +18,15 @@ const HomePage = () => {
   const {
     data,
     refetch: refetchNotes,
-    loading: getLoading,
-    error: getNotesError,
+    loading: notesLoading,
+    error: notesError,
   } = useGetNotes();
+
+  const {
+    data: users,
+    loading: usersLoading,
+    error: usersError,
+  } = useGetUsers();
 
   const {
     createNote,
@@ -33,7 +40,11 @@ const HomePage = () => {
 
   const handleClick = async () => {
     const updatedAt = getNewDate();
-    const newNoteBody = { title: "New Note", text: "", updated_at: updatedAt };
+    const newNoteBody = {
+      title: "New Note",
+      text: "",
+      updated_at: updatedAt,
+    };
     await createNote(newNoteBody);
     await refetchNotes();
   };
@@ -73,7 +84,7 @@ const HomePage = () => {
 
       updateNote();
     }
-  }, [debouncedNoteToUpdate]);
+  }, [debouncedNoteToUpdate, notes]);
 
   const handleContentChange = (
     id: number,
@@ -107,9 +118,9 @@ const HomePage = () => {
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-44">
-        {getNotesError ? (
+        {notesError || usersError ? (
           <ErrorComponent />
-        ) : getLoading ? (
+        ) : notesLoading || usersLoading ? (
           <LoadingComponent />
         ) : (
           notes.map((note) => (
@@ -117,6 +128,7 @@ const HomePage = () => {
               key={note.id}
               {...note}
               handleContentChange={handleContentChange}
+              users={users}
             />
           ))
         )}

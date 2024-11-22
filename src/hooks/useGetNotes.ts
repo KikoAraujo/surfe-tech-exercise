@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import getNotes from "../services/api/notes/getNotes";
 import { formatNotes } from "../utils/formatters";
-import { sortNotes } from "../utils/helpers";
+import { sortData } from "../utils/helpers";
 import { Note } from "../types/Notes";
 
 const useGetNotes = () => {
@@ -21,9 +21,10 @@ const useGetNotes = () => {
 
       const notesData = await response.json();
       const formattedNotes = formatNotes(notesData);
-      const sortedNotes = sortNotes(formattedNotes);
+      const sortedNotesByDate = sortData(formattedNotes, "updated_at", true);
+      const sortedNotesPinned = sortData(sortedNotesByDate, "pinned");
 
-      setData(sortedNotes);
+      setData(sortedNotesPinned);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
