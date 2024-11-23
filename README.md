@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# **Note-Taking App**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to this Note-Taking App! This repository contains a small note-taking application built with **React**. The app includes an input field for setting the note title, a text area for taking notes, automatic saving, and a collaborative @mention feature
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## **Features**
 
-### `npm start`
+### **1. Note-taking Text-area**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- A dedicated input field for setting the title of your note.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### **1. Note-taking Text-area**
 
-### `npm test`
+- A text-area for inputting free plain text.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **2. Auto-save and Load Notes**
 
-### `npm run build`
+- Notes are automatically saved when the user stops typing.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **3. Collaborative @mention Feature**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Mention users by typing `@` in the text-area.
+- Displays a dynamic list of users as you type, showing the top 5 relevant results.
+- Mentions are styled differently to stand out in the text.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## **Demo**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Here’s a quick look at the app:  
+_(Include screenshots or a live demo link here)_
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## **Technologies Used**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **React** (preferred framework)
+- **Typescript** (optional but used for better type safety)
+- **Tailwind CSS** (for styling)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **API Endpoints**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **Notes**
+
+- **POST**: `https://challenge.surfe.com/SESSION/notes` (to save a note)
+- **PUT**: `https://challenge.surfe.com/SESSION/notes/{ID}` (to update a note)
+- **GET**: `https://challenge.surfe.com/SESSION/notes` (to fetch all notes)
+- **GET**: `https://challenge.surfe.com/SESSION/notes/{ID}` (to fetch a specific note)
+
+### **Users**
+
+- **GET**: `https://challenge.surfe.com/users` (to fetch available users for mentions)
+
+---
+
+## **Installation and Setup**
+
+### **Prerequisites**
+
+- **Node.js** (version 14+ recommended)
+- **npm** or **yarn** for package management
+
+### **Steps**
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/yourusername/front-end-challenge.git
+
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd surfe-tech-exercise
+
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+---
+
+## **Usage**
+
+### **Saving and Loading Notes**
+
+- Start typing in the text-area. Notes will automatically save after a pause in typing.
+- Refresh the page to see the note loaded back.
+
+### **Mentioning Users**
+
+- Type `@` followed by the first few letters of a username.
+- A dropdown with up to 5 matching users will appear. Select a user to mention them.
