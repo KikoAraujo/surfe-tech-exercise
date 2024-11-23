@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
+import { generateGUID } from "./utils/helpers";
 
 function App() {
   useEffect(() => {
     const session_id = sessionStorage.getItem("session_id");
     if (!session_id) {
-      sessionStorage.setItem("session_id", "3519195728961111");
+      const newSessionId = generateGUID();
+      sessionStorage.setItem("session_id", newSessionId);
     }
   }, []);
 

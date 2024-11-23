@@ -42,6 +42,7 @@ export const Ellipse = (className: string, fillColor: string = "white") => {
         stroke="url(#paint0_linear_7083_204452)"
         strokeWidth="6"
         strokeLinecap="round"
+        fill="none"
       />
       <defs>
         <linearGradient

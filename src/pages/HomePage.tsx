@@ -11,6 +11,7 @@ import { Note } from "../types/Notes";
 import { useDebounce } from "../hooks/useDebounce";
 import putNote from "../services/api/notes/putNote";
 import useGetUsers from "../hooks/useGetUsers";
+import NoDataComponent from "../components/Shared/NoDataComponent";
 
 const HomePage = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -38,7 +39,7 @@ const HomePage = () => {
     setNotes(data);
   }, [data]);
 
-  const handleClick = async () => {
+  const createNewNoteHandler = async () => {
     const updatedAt = getNewDate();
     const newNoteBody = {
       title: "New Note",
@@ -102,26 +103,44 @@ const HomePage = () => {
 
   return (
     <div className={notes.length > 6 ? "h-full" : "h-screen"}>
-      <div className="sticky top-10 ml-10">
-        <div className="absolute">
-          {/* Create Note Button */}
-          <Button
-            text="Add note"
-            className="bg-surfe-dark-blue text-neutral-50"
-            icon={{
-              position: "left",
-              iconElement: Icons.plus("h-4 w-4", "#fafafa"),
-            }}
-            disabled={postLoading}
-            onClick={handleClick}
-          />
+      {notes.length === 0 ? null : (
+        <div className="sticky top-10 ml-10">
+          <div className="absolute">
+            {/* Create Note Button */}
+            <Button
+              text="Add Note"
+              className="bg-surfe-dark-blue text-neutral-50"
+              icon={{
+                position: "left",
+                iconElement: Icons.plus("h-4 w-4", "#fafafa"),
+              }}
+              disabled={postLoading}
+              onClick={createNewNoteHandler}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-44">
         {notesError || usersError ? (
           <ErrorComponent />
         ) : notesLoading || usersLoading ? (
           <LoadingComponent />
+        ) : notes.length === 0 ? (
+          <NoDataComponent
+            title="It looks like you don't have any notes yet..."
+            subTitle={
+              <>
+                Click{" "}
+                <span
+                  className="text-surfe-pink font-bold cursor-pointer hover:underline"
+                  onClick={createNewNoteHandler}
+                >
+                  here
+                </span>{" "}
+                to create your first note!!
+              </>
+            }
+          />
         ) : (
           notes.map((note) => (
             <NoteComponent
