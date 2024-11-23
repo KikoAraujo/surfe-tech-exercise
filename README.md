@@ -29,7 +29,7 @@ Welcome to this Note-Taking App! This repository contains a small note-taking ap
 ## **Demo**
 
 Here’s a quick look at the app:  
-_(Include screenshots or a live demo link here)_
+_(TODO)_
 
 ---
 
