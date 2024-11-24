@@ -13,14 +13,14 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   workers: 1,
-  reporter: "html",
+  reporter: [],
   expect: { timeout: 30000 },
   timeout: 30000,
   use: {
     baseURL: "http://localhost:3000",
-    trace: "on-first-retry",
-    video: "on",
-    screenshot: "only-on-failure",
+    trace: "off",
+    video: "off",
+    screenshot: "off",
     headless: true,
     viewport: { width: 1280, height: 720 },
     launchOptions: {
