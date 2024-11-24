@@ -12,6 +12,7 @@ import useGetUsers from "../hooks/users/useGetUsers";
 import { useCreateNote } from "../hooks/notes/useCreateNote";
 import ErrorComponent from "../components/Layout/StatusComponents/ErrorComponent";
 import LoadingComponent from "../components/Layout/StatusComponents/LoadingComponent";
+import { useUpdateNote } from "../hooks/notes/useUpdateNote";
 
 const HomePage = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -35,6 +36,8 @@ const HomePage = () => {
     error: postNoteError,
   } = useCreateNote();
 
+  const { updateNote } = useUpdateNote();
+
   useEffect(() => {
     setNotes(data);
   }, [data]);
@@ -51,39 +54,23 @@ const HomePage = () => {
   };
 
   // Update note after stop typing for 1sec
-  const [updateNote, setUpdateNote] = useState<{
+  const [noteToUpdate, setNoteToUpdate] = useState<{
     id: number;
     field: "title" | "text";
     value: string;
   } | null>(null);
-  const debouncedNoteToUpdate = useDebounce(updateNote, 1000);
+  const debouncedNoteToUpdate = useDebounce(noteToUpdate, 1000);
 
   useEffect(() => {
     if (debouncedNoteToUpdate) {
       const { id, field, value } = debouncedNoteToUpdate;
 
-      const updateNote = async () => {
-        try {
-          const noteToUpdate = notes.find((note) => note.id === id);
+      const changedNote = notes.find((note) => note.id === id);
+      if (!changedNote) return;
 
-          if (!noteToUpdate) return;
+      changedNote[field] = value;
 
-          noteToUpdate[field] = value;
-          const updatedAt = getNewDate();
-          const newNoteBody = {
-            title: noteToUpdate.title,
-            text: noteToUpdate.text,
-            updated_at: updatedAt,
-          };
-          const formattedBody = JSON.stringify(newNoteBody);
-
-          await putNote(id, formattedBody);
-        } catch (error) {
-          console.error("Error updating note", error);
-        }
-      };
-
-      updateNote();
+      updateNote(changedNote);
     }
   }, [debouncedNoteToUpdate, notes]);
 
@@ -92,7 +79,7 @@ const HomePage = () => {
     field: "title" | "text",
     value: string
   ) => {
-    setUpdateNote({ id, field, value });
+    setNoteToUpdate({ id, field, value });
 
     setNotes((prevNotes) =>
       prevNotes.map((note) =>

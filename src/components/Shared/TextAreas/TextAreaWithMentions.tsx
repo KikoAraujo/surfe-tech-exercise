@@ -19,6 +19,7 @@ const TextAreaWithMentions = ({
   users,
 }: TextAreaWithMentionsProps) => {
   const inputRef = useRef<HTMLDivElement>(null);
+  const mentionListRef = useRef<HTMLDivElement>(null);
 
   const [mentionList, setMentionList] = useState<User[]>([]);
   const [isMentioning, setIsMentioning] = useState<boolean>(false);
@@ -27,6 +28,25 @@ const TextAreaWithMentions = ({
     left: number;
     direction: "up" | "down";
   } | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mentionListRef.current &&
+        !mentionListRef.current.contains(event.target as Node)
+      ) {
+        setIsMentioning(false);
+        setMentionList([]);
+        setMentionListPosition(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -38,7 +58,7 @@ const TextAreaWithMentions = ({
     // Find all spans with mentions
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = inputRef.current?.innerHTML || "";
-    const mentionSpans = tempDiv.querySelectorAll("span.text-surfe-pink");
+    const mentionSpans = tempDiv.querySelectorAll("span.bg-surfe-dark-blue");
 
     let spaceInsideSpan = false;
     let deletingMention = false;
@@ -113,7 +133,7 @@ const TextAreaWithMentions = ({
     const newValue = `${value.slice(
       0,
       lastAtIndex
-    )}<span class="bg-surfe-dark-blue text-surfe-light-blue px-0.5 rounded">@${
+    )}<span id="mention" class="bg-surfe-dark-blue text-surfe-light-blue px-0.5 rounded">@${
       user.username
     }</span>&nbsp;`;
 
@@ -160,7 +180,10 @@ const TextAreaWithMentions = ({
   };
 
   return (
-    <div data-testid="textarea_with_mentions" className="h-full relative">
+    <div
+      data-testid="textarea_with_mentions"
+      className="h-full relative"
+    >
       <div
         ref={inputRef}
         className="text-sm font-medium outline-none w-full resize-none transition bg-transparent h-full overflow-y-auto flex-row-reverse"
@@ -169,14 +192,10 @@ const TextAreaWithMentions = ({
         role="textarea"
         aria-multiline="true"
         inputMode="text"
-        onBlur={() => {
-          setIsMentioning(false);
-          setMentionList([]);
-          setMentionListPosition(null);
-        }}
       />
       {isMentioning && mentionList.length > 0 && (
         <div
+          ref={mentionListRef}
           className="absolute bg-white border-2 rounded-md z-10 shadow-xl"
           style={{
             top:
