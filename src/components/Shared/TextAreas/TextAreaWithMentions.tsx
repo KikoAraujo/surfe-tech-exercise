@@ -158,7 +158,7 @@ const TextAreaWithMentions = ({
   };
 
   return (
-    <div className="h-full relative">
+    <div data-testid="textarea_with_mentions" className="h-full relative">
       <div
         ref={inputRef}
         className="text-sm font-medium outline-none w-full resize-none transition bg-transparent h-full overflow-y-auto flex-row-reverse"

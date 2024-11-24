@@ -1,5 +1,5 @@
 import NoteComponent from "../components/Shared/Notes/NoteComponent";
-import Button from "../components/Shared/Buttons/DefaultButton";
+import DefaultButton from "../components/Shared/Buttons/DefaultButton";
 import { Icons } from "../components/Icons";
 import { getNewDate } from "../utils/formatters";
 import { useEffect, useState } from "react";
@@ -107,7 +107,7 @@ const HomePage = () => {
         <div className="sticky top-10 ml-10">
           <div className="absolute">
             {/* Create Note Button */}
-            <Button
+            <DefaultButton
               text="Add Note"
               className="bg-surfe-dark-blue text-neutral-50"
               icon={{
