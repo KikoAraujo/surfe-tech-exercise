@@ -120,7 +120,13 @@ const HomePage = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-44">
+      <div
+        className={`flex flex-wrap items-center justify-center h-full gap-10 py-10 px-20 lg:px-44 ${
+          notesLoading || usersLoading || notesError || usersError
+            ? "h-screen"
+            : "h-full"
+        }`}
+      >
         {notesError || usersError ? (
           <ErrorComponent />
         ) : notesLoading || usersLoading ? (
