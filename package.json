@@ -17,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "unit_tests": "jest --watch"
+    "unit_tests": "jest --watch",
+    "e2e_tests": "npx playwright test --ui"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +50,7 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "@playwright/test": "^1.42.1"
   }
 }

@@ -21,11 +21,15 @@ const NoteComponent = ({
   users,
 }: NoteComponentProps) => {
   return (
-    <div className="bg-white w-72 h-60 rounded-lg shadow-xl px-3.5 py-2 flex flex-col gap-2">
+    <div
+      data-testid={`note_component_${id}`}
+      className="bg-white w-72 h-60 rounded-lg shadow-xl px-3.5 py-2 flex flex-col gap-2"
+    >
       <div>
         <div className="flex items-center justify-between">
           {/* Editable Title */}
           <input
+            data-testid="title_input"
             className="font-semibold text-2xl outline-none transition w-full bg-transparent"
             value={title}
             onChange={(e) => {

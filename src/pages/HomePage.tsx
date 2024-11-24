@@ -132,6 +132,7 @@ const HomePage = () => {
               <>
                 Click{" "}
                 <span
+                  data-testid="create_first_note_button"
                   className="text-surfe-pink font-bold cursor-pointer hover:underline"
                   onClick={createNewNoteHandler}
                 >

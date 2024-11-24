@@ -26,13 +26,6 @@ Welcome to this Note-Taking App! This repository contains a small note-taking ap
 
 ---
 
-## **Demo**
-
-Here’s a quick look at the app:  
-_(TODO)_
-
----
-
 ## **Technologies Used**
 
 - **React** (preferred framework)
@@ -104,3 +97,10 @@ _(TODO)_
 
 - Type `@` followed by the first few letters of a username.
 - A dropdown with up to 5 matching users will appear. Select a user to mention them.
+
+## Testing
+
+### **Available scripts to run unit and e2e tests:**
+
+- `npm run unit_tests`: Runs tests with Jest in watch mode.
+- `npm run e2e_tests`: Runs Playwright tests.
