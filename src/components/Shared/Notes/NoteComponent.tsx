@@ -1,7 +1,7 @@
-import { Note } from "../../types/Notes";
-import { Icons } from "../Icons";
-import { User } from "../../types/Users";
-import TextAreaWithMentions from "../Shared/TextAreaWithMentions";
+import { Note } from "../../../types/Notes";
+import { Icons } from "../../Icons";
+import { User } from "../../../types/Users";
+import TextAreaWithMentions from "../TextAreas/TextAreaWithMentions";
 
 interface NoteComponentProps extends Note {
   handleContentChange: (

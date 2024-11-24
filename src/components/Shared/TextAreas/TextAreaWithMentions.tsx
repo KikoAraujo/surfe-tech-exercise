@@ -1,7 +1,7 @@
-import { Note } from "../../types/Notes";
-import { User } from "../../types/Users";
 import { useEffect, useRef, useState } from "react";
-import { moveCaretToEnd } from "../../utils/helpers";
+import { Note } from "../../../types/Notes";
+import { User } from "../../../types/Users";
+import { moveCaretToEnd } from "../../../utils/helpers";
 
 interface TextAreaWithMentionsProps extends Note {
   handleContentChange: (

@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import getNotes from "../services/api/notes/getNotes";
-import { formatNotes } from "../utils/formatters";
-import { sortData } from "../utils/helpers";
-import { Note } from "../types/Notes";
+import getNotes from "../../services/api/notes/getNotes";
+import { Note } from "../../types/Notes";
+import { formatNotes } from "../../utils/formatters";
+import { sortData } from "../../utils/helpers";
 
 const useGetNotes = () => {
   const [data, setData] = useState<Note[]>([]);
@@ -22,9 +22,8 @@ const useGetNotes = () => {
       const notesData = await response.json();
       const formattedNotes = formatNotes(notesData);
       const sortedNotesByDate = sortData(formattedNotes, "updated_at", true);
-      const sortedNotesPinned = sortData(sortedNotesByDate, "pinned");
 
-      setData(sortedNotesPinned);
+      setData(sortedNotesByDate);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

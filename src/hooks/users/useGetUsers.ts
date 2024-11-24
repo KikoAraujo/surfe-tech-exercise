@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { User } from "../types/Users";
-import getUsers from "../services/api/users/getUsers";
-import { sortData } from "../utils/helpers";
+import getUsers from "../../services/api/users/getUsers";
+import { sortData } from "../../utils/helpers";
+import { User } from "../../types/Users";
 
 const useGetUsers = () => {
   const [data, setData] = useState<User[]>([]);

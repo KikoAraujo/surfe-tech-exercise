@@ -1,17 +1,17 @@
-import NoteComponent from "../components/Layout/NoteComponent";
-import Button from "../components/Buttons";
+import NoteComponent from "../components/Shared/Notes/NoteComponent";
+import Button from "../components/Shared/Buttons/DefaultButton";
 import { Icons } from "../components/Icons";
 import { getNewDate } from "../utils/formatters";
-import useGetNotes from "../hooks/useGetNotes";
-import { useCreateNote } from "../hooks/useCreateNote";
-import ErrorComponent from "../components/Layout/ErrorComponent";
-import LoadingComponent from "../components/Layout/LoadingComponent";
 import { useEffect, useState } from "react";
 import { Note } from "../types/Notes";
-import { useDebounce } from "../hooks/useDebounce";
+import { useDebounce } from "../hooks/utils/useDebounce";
 import putNote from "../services/api/notes/putNote";
-import useGetUsers from "../hooks/useGetUsers";
-import NoDataComponent from "../components/Shared/NoDataComponent";
+import NoDataComponent from "../components/Layout/StatusComponents/NoDataComponent";
+import useGetNotes from "../hooks/notes/useGetNotes";
+import useGetUsers from "../hooks/users/useGetUsers";
+import { useCreateNote } from "../hooks/notes/useCreateNote";
+import ErrorComponent from "../components/Layout/StatusComponents/ErrorComponent";
+import LoadingComponent from "../components/Layout/StatusComponents/LoadingComponent";
 
 const HomePage = () => {
   const [notes, setNotes] = useState<Note[]>([]);

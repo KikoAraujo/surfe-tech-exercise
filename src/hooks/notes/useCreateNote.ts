@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import postNote from "../services/api/notes/postNote";
+import postNote from "../../services/api/notes/postNote";
 
 export const useCreateNote = () => {
   const [loading, setLoading] = useState(false);

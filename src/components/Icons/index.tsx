@@ -1,4 +1,4 @@
-import { Ellipse, Plus, Thumbtack, ThumbtackFilled } from "./icons";
+import { Ellipse, Plus, Thumbtack, ThumbtackFilled } from "./IconLibrary";
 
 export const Icons = {
   thumbtack: Thumbtack,
