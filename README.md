@@ -100,7 +100,7 @@ Welcome to this Note-Taking App! This repository contains a small note-taking ap
 
 ## Testing
 
-### **Available scripts to run unit and e2e tests:**
+### **Available scripts to run unit and e2e tests**
 
 - `npm run unit_tests`: Runs tests with Jest in watch mode.
 - `npm run e2e_tests`: Runs Playwright tests.

@@ -94,7 +94,7 @@ const TextAreaWithMentions = ({
               user.username.toLowerCase().includes(mentionQuery.toLowerCase())
           )
         )
-        .slice(0, mentionQuery.length > 0 ? 5 : users.length);
+        .slice(0, 5);
       setMentionList(filteredUsers);
       setIsMentioning(true);
     } else {
@@ -113,7 +113,9 @@ const TextAreaWithMentions = ({
     const newValue = `${value.slice(
       0,
       lastAtIndex
-    )}<span class="text-surfe-pink">@${user.username}</span>&nbsp;`;
+    )}<span class="bg-surfe-dark-blue text-surfe-light-blue px-0.5 rounded">@${
+      user.username
+    }</span>&nbsp;`;
 
     if (inputRef.current) {
       inputRef.current.innerHTML = newValue;
@@ -167,22 +169,27 @@ const TextAreaWithMentions = ({
         role="textarea"
         aria-multiline="true"
         inputMode="text"
+        onBlur={() => {
+          setIsMentioning(false);
+          setMentionList([]);
+          setMentionListPosition(null);
+        }}
       />
       {isMentioning && mentionList.length > 0 && (
         <div
-          className="absolute bg-white border border-gray-300 rounded-md z-10"
+          className="absolute bg-white border-2 rounded-md z-10 shadow-xl"
           style={{
             top:
               mentionListPosition?.direction === "down"
                 ? mentionListPosition.top
-                : (mentionListPosition?.top as number) - 150,
+                : (mentionListPosition?.top as number) - 185,
             left: mentionListPosition?.left,
           }}
         >
           {mentionList.map((user) => (
             <div
               key={user.username}
-              className="cursor-pointer hover:bg-gray-200 p-2"
+              className="cursor-pointer hover:bg-surfe-light-blue p-2 text-sm font-semibold text-surfe-dark-blue"
               onClick={() => handleMentionSelect(user)}
             >
               {user.username}
