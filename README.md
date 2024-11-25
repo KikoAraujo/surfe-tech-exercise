@@ -61,7 +61,7 @@ Welcome to this Note-Taking App! This repository contains a small note-taking ap
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/yourusername/front-end-challenge.git
+   git clone https://github.com/KikoAraujo/surfe-tech-exercise.git
 
    ```
 

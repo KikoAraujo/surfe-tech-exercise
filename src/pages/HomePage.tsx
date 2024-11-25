@@ -5,7 +5,6 @@ import { getNewDate } from "../utils/formatters";
 import { useEffect, useState } from "react";
 import { Note } from "../types/Notes";
 import { useDebounce } from "../hooks/utils/useDebounce";
-import putNote from "../services/api/notes/putNote";
 import NoDataComponent from "../components/Layout/StatusComponents/NoDataComponent";
 import useGetNotes from "../hooks/notes/useGetNotes";
 import useGetUsers from "../hooks/users/useGetUsers";
