@@ -86,6 +86,31 @@ Welcome to this Note-Taking App! This repository contains a small note-taking ap
 
 ---
 
+## **Project Structure**
+
+The project is organized to ensure maintainability and scalability. Below is an overview:
+
+```plaintext
+├── src/
+│   ├── assets/          # Static assets like images or fonts
+│   ├── components/      # Reusable UI components (e.g., buttons, inputs)
+│   ├── hooks/           # Custom React hooks for shared logic
+│   ├── pages/           # Page-level components for layouts
+│   ├── services/        # Business logic and API interactions
+│   ├── types/           # TypeScript type definitions and interfaces
+│   ├── utils/           # Shared utility functions
+│   ├── App.tsx          # Main application component
+│   ├── index.css        # Global styles
+│   ├── index.tsx        # Entry point of the React app
+├── test/
+│   ├── e2e/             # End-to-end tests for workflows
+│   ├── unit/            # Unit tests for individual functions and components
+├── public/              # Static files like `index.html` and favicon
+└── README.md            # Project documentation
+```
+
+---
+
 ## **Usage**
 
 ### **Saving and Loading Notes**
